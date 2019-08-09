@@ -14,6 +14,7 @@ import (
 // register MIME type with content type
 func registerMime() error {
 	for k, v := range mimemaps {
+		// 将扩展名 k 对应的 MIME 类型设置为 v
 		mime.AddExtensionType(k, v)
 	}
 	return nil
