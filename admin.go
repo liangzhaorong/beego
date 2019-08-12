@@ -398,6 +398,7 @@ func (admin *adminApp) Run() {
 	if BConfig.Listen.AdminPort != 0 {
 		addr = fmt.Sprintf("%s:%d", BConfig.Listen.AdminAddr, BConfig.Listen.AdminPort)
 	}
+	// 注册默认的路由
 	for p, f := range admin.routers {
 		http.Handle(p, f)
 	}

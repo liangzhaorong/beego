@@ -683,6 +683,7 @@ func (p *ControllerRegister) ServeHTTP(rw http.ResponseWriter, r *http.Request) 
 
 	var urlPath = r.URL.Path
 
+	// 不区分大小写
 	if !BConfig.RouterCaseSensitive {
 		urlPath = strings.ToLower(urlPath)
 	}
@@ -861,6 +862,7 @@ func (p *ControllerRegister) ServeHTTP(rw http.ResponseWriter, r *http.Request) 
 
 			//render template
 			if !context.ResponseWriter.Started && context.Output.Status == 0 {
+				// 若设置了自动渲染，则在调用完相应的 Method 方法后调用 Render 函数
 				if BConfig.WebConfig.AutoRender {
 					if err := execController.Render(); err != nil {
 						logs.Error(err)

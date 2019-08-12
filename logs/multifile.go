@@ -27,7 +27,7 @@ import (
 type multiFileLogWriter struct {
 	writers       [LevelDebug + 1 + 1]*fileLogWriter // the last one for fullLogWriter
 	fullLogWriter *fileLogWriter
-	Separate      []string `json:"separate"`
+	Separate      []string `json:"separate"` // 需要单独写入文件的日志级别,设置后命名类似 test.error.log
 }
 
 var levelNames = [...]string{"emergency", "alert", "critical", "error", "warning", "notice", "info", "debug"}

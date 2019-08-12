@@ -38,6 +38,8 @@ var (
 	beeViewPathTemplates = make(map[string]map[string]*template.Template)
 	templatesLock        sync.RWMutex
 	// beeTemplateExt stores the template extension which will build
+	// beego 默认情况下支持 tpl、html 以及 gohtml 后缀名的模板文件，若需要额外的后缀名，可
+	// 调用 beego.AddTemplateExt 方法添加
 	beeTemplateExt = []string{"tpl", "html", "gohtml"}
 	// beeTemplatePreprocessors stores associations of extension -> preprocessor handler
 	beeTemplateEngines = map[string]templatePreProcessor{}
@@ -65,6 +67,7 @@ func ExecuteViewPathTemplate(wr io.Writer, name string, viewPath string, data in
 			if t.Lookup(name) != nil {
 				err = t.ExecuteTemplate(wr, name, data)
 			} else {
+				// 执行模板的 merger 操作
 				err = t.Execute(wr, data)
 			}
 			if err != nil {
@@ -153,6 +156,7 @@ func HasTemplateExt(paths string) bool {
 }
 
 // AddTemplateExt add new extension for template.
+// beego 默认情况下支持 tpl、html 以及 gohtml 后缀名的模板文件，若需要额外的后缀名，可如下该方法添加
 func AddTemplateExt(ext string) {
 	for _, v := range beeTemplateExt {
 		if v == ext {
@@ -281,6 +285,7 @@ func getTplDeep(root string, fs http.FileSystem, file string, parent string, t *
 }
 
 func getTemplate(root string, fs http.FileSystem, file string, others ...string) (t *template.Template, err error) {
+	// 创建一个模板
 	t = template.New(file).Delims(BConfig.WebConfig.TemplateLeft, BConfig.WebConfig.TemplateRight).Funcs(beegoTplFuncMap)
 	var subMods [][]string
 	t, subMods, err = getTplDeep(root, fs, file, "", t)

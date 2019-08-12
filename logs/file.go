@@ -34,39 +34,39 @@ import (
 type fileLogWriter struct {
 	sync.RWMutex // write log order by order and  atomic incr maxLinesCurLines and maxSizeCurSize
 	// The opened file
-	Filename   string `json:"filename"`
+	Filename   string `json:"filename"`    // 保存的文件名
 	fileWriter *os.File
 
 	// Rotate at line
-	MaxLines         int `json:"maxlines"`
+	MaxLines         int `json:"maxlines"` // 每个文件保存的最大行数，默认值 1000000
 	maxLinesCurLines int
 
 	MaxFiles         int `json:"maxfiles"`
 	MaxFilesCurFiles int
 
 	// Rotate at size
-	MaxSize        int `json:"maxsize"`
+	MaxSize        int `json:"maxsize"`    // 每个文件保存的最大尺寸，默认值是 1<<28 (256MB)
 	maxSizeCurSize int
 
 	// Rotate daily
-	Daily         bool  `json:"daily"`
-	MaxDays       int64 `json:"maxdays"`
+	Daily         bool  `json:"daily"`    // 是否按照每天 logrotate，默认是 true
+	MaxDays       int64 `json:"maxdays"`  // 文件最多保存多少天，默认保存 7 天
 	dailyOpenDate int
 	dailyOpenTime time.Time
 
 	// Rotate hourly
-	Hourly         bool  `json:"hourly"`
-	MaxHours       int64 `json:"maxhours"`
+	Hourly         bool  `json:"hourly"`   // 是否按照每小时 logrotate，默认是 false
+	MaxHours       int64 `json:"maxhours"` // 文件最多保存多少小时，默认保存 168 小时
 	hourlyOpenDate int
 	hourlyOpenTime time.Time
 
-	Rotate bool `json:"rotate"`
+	Rotate bool `json:"rotate"`  // 是否开启 logrotate，默认是 true
 
-	Level int `json:"level"`
+	Level int `json:"level"`     // 日志保存的时候的级别，默认是 Trace 级别
 
-	Perm string `json:"perm"`
+	Perm string `json:"perm"`   // 当前记录日志的日志文件权限，默认 0660
 
-	RotatePerm string `json:"rotateperm"`
+	RotatePerm string `json:"rotateperm"` // 日志切割后文件的权限，默认 0440
 
 	fileNameOnly, suffix string // like "project.log", project is fileNameOnly and .log is suffix
 }

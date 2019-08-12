@@ -49,8 +49,8 @@ var colors = []brush{
 // consoleWriter implements LoggerInterface and writes messages to terminal.
 type consoleWriter struct {
 	lg       *logWriter
-	Level    int  `json:"level"`
-	Colorful bool `json:"color"` //this filed is useful only when system's terminal supports color
+	Level    int  `json:"level"` // 输出的日志级别
+	Colorful bool `json:"color"` // 是否开启打印日志彩色打印(需环境支持彩色输出). this filed is useful only when system's terminal supports color
 }
 
 // NewConsole create ConsoleWriter returning as LoggerInterface.

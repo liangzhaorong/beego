@@ -26,11 +26,11 @@ import (
 type connWriter struct {
 	lg             *logWriter
 	innerWriter    io.WriteCloser
-	ReconnectOnMsg bool   `json:"reconnectOnMsg"`
-	Reconnect      bool   `json:"reconnect"`
-	Net            string `json:"net"`
-	Addr           string `json:"addr"`
-	Level          int    `json:"level"`
+	ReconnectOnMsg bool   `json:"reconnectOnMsg"` // 是否每次链接都重新打开链接，默认是 false
+	Reconnect      bool   `json:"reconnect"` // 是否自动重新链接地址，默认是 false
+	Net            string `json:"net"`       // 网络链接的方式，可以使用 tcp、unix、udp 等
+	Addr           string `json:"addr"`      // 网络链接的地址
+	Level          int    `json:"level"`     // 日志保存的时候的级别，默认是 Trace 级别
 }
 
 // NewConn create new ConnWrite returning as LoggerInterface.

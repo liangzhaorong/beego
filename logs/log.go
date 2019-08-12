@@ -549,6 +549,7 @@ func Reset() {
 }
 
 // Async set the beelogger with Async mode and hold msglen messages
+// 设置异步输出日志
 func Async(msgLen ...int64) *BeeLogger {
 	return beeLogger.Async(msgLen...)
 }
@@ -580,6 +581,7 @@ func SetLogFuncCallDepth(d int) {
 }
 
 // SetLogger sets a new logger.
+// 添加输出引擎，adapter 为引擎名，config 为引擎的配置
 func SetLogger(adapter string, config ...string) error {
 	return beeLogger.SetLogger(adapter, config...)
 }

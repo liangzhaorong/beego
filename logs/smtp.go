@@ -26,13 +26,13 @@ import (
 
 // SMTPWriter implements LoggerInterface and is used to send emails via given SMTP-server.
 type SMTPWriter struct {
-	Username           string   `json:"username"`
-	Password           string   `json:"password"`
-	Host               string   `json:"host"`
-	Subject            string   `json:"subject"`
-	FromAddress        string   `json:"fromAddress"`
-	RecipientAddresses []string `json:"sendTos"`
-	Level              int      `json:"level"`
+	Username           string   `json:"username"`    // smtp 验证的用户名
+	Password           string   `json:"password"`    // smtp 验证密码
+	Host               string   `json:"host"`        // 发送的邮箱地址
+	Subject            string   `json:"subject"`     // 发送邮件的标题，默认是 Diagnostic message from server
+	FromAddress        string   `json:"fromAddress"` // 发件人邮箱地址
+	RecipientAddresses []string `json:"sendTos"`     // 邮件需要发送的人，支持多个
+	Level              int      `json:"level"`       // 日志发送的级别，默认是 Trace 级别
 }
 
 // NewSMTPWriter create smtp writer.

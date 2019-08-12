@@ -97,13 +97,14 @@ type Controller struct {
 	AppController  interface{}
 
 	// template data
-	TplName        string
+	TplName        string  // 模板名称，beego 会自动在 viewpath 路径下查询该文件并渲染
 	ViewPath       string
+	// beego 支持 layout 设计，首先解析 TplName 指定的文件，获取内容赋值给 LayoutContent，最后渲染该 Layout 指定的文件
 	Layout         string
 	LayoutSections map[string]string // the key is the section name and the value is the template name
 	TplPrefix      string
 	TplExt         string
-	EnableRender   bool
+	EnableRender   bool   // 是否使能渲染，默认为 true
 
 	// xsrf data
 	_xsrfToken string
@@ -282,7 +283,11 @@ func (c *Controller) RenderBytes() ([]byte, error) {
 
 func (c *Controller) renderTemplate() (bytes.Buffer, error) {
 	var buf bytes.Buffer
+	// 若设置了自动渲染，但是在 Controller 中没有设置任何的 TplName，则 beego 会自动设置模板文件如下
 	if c.TplName == "" {
+		// Controller 名 + 请求方法名.模板后缀
+		// 即若 Controller 名为 AddController，请求方法为 POST，默认文件后缀为 tpl
+		// 则默认请求为 /viewpath/addcontroller/post.tpl
 		c.TplName = strings.ToLower(c.controllerName) + "/" + strings.ToLower(c.actionName) + "." + c.TplExt
 	}
 	if c.TplPrefix != "" {
