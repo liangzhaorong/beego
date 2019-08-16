@@ -37,23 +37,23 @@ func init() {
 // ProcessInput parse input command string
 func ProcessInput(input string, w io.Writer) {
 	switch input {
-	case "lookup goroutine":
+	case "lookup goroutine": // 打印出来当前全部的 goroutine 执行的情况
 		p := pprof.Lookup("goroutine")
 		p.WriteTo(w, 2)
-	case "lookup heap":
+	case "lookup heap": // 用来打印当前 heap 的信息
 		p := pprof.Lookup("heap")
 		p.WriteTo(w, 2)
-	case "lookup threadcreate":
+	case "lookup threadcreate": // 查看创建线程的信息
 		p := pprof.Lookup("threadcreate")
 		p.WriteTo(w, 2)
-	case "lookup block":
+	case "lookup block": // 查看 block 信息
 		p := pprof.Lookup("block")
 		p.WriteTo(w, 2)
-	case "get cpuprof":
+	case "get cpuprof": // 开始记录 cpuprof 信息，生产一个文件 cpu-pid.pprof，开始记录当前进程的 CPU 处理信息
 		GetCPUProfile(w)
-	case "get memprof":
+	case "get memprof": // 开启记录 memprof，生产一个文件 mem-pid.memprof
 		MemProf(w)
-	case "gc summary":
+	case "gc summary": // 查看 GC 信息
 		PrintGCSummary(w)
 	}
 }

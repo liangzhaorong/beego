@@ -92,14 +92,14 @@ func GetProvider(name string) (Provider, error) {
 
 // ManagerConfig define the session config
 type ManagerConfig struct {
-	CookieName              string `json:"cookieName"`
-	EnableSetCookie         bool   `json:"enableSetCookie,omitempty"`
-	Gclifetime              int64  `json:"gclifetime"`
-	Maxlifetime             int64  `json:"maxLifetime"`
-	DisableHTTPOnly         bool   `json:"disableHTTPOnly"`
-	Secure                  bool   `json:"secure"`
-	CookieLifeTime          int    `json:"cookieLifeTime"`
-	ProviderConfig          string `json:"providerConfig"`
+	CookieName              string `json:"cookieName"`                // 客户端存储 cookie 的名字
+	EnableSetCookie         bool   `json:"enableSetCookie,omitempty"` // 是否开启 SetCookie,omitempty 这个设置
+	Gclifetime              int64  `json:"gclifetime"`                // 触发 GC 的时间
+	Maxlifetime             int64  `json:"maxLifetime"`               // 服务器端存储的数据的过期时间
+	DisableHTTPOnly         bool   `json:"disableHTTPOnly"`           //
+	Secure                  bool   `json:"secure"`                    // 是否开启 HTTPS，在 cookie 设置的时候有 cookie.Secure 设置
+	CookieLifeTime          int    `json:"cookieLifeTime"`            // 客户端存储的 cookie 的时间，默认值是 0，即浏览器生命周期
+	ProviderConfig          string `json:"providerConfig"`            // 配置信息，根据不同的引擎设置不同的配置信息
 	Domain                  string `json:"domain"`
 	SessionIDLength         int64  `json:"sessionIDLength"`
 	EnableSidInHTTPHeader   bool   `json:"EnableSidInHTTPHeader"`

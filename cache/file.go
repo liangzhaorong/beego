@@ -63,6 +63,7 @@ func NewFileCache() Cache {
 
 // StartAndGC will start and begin gc for file cache.
 // the config need to be like {CachePath:"/cache","FileSuffix":".bin","DirectoryLevel":"2","EmbedExpiry":"0"}
+// CachePath: 缓存的文件目录，FileSuffix: 文件后缀, DirectoryLevel: 目录层级, EmbedExpiry: 过期设置
 func (fc *FileCache) StartAndGC(config string) error {
 
 	cfg := make(map[string]string)

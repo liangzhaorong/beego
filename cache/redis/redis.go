@@ -159,9 +159,11 @@ func (rc *Cache) StartAndGC(config string) error {
 	var cf map[string]string
 	json.Unmarshal([]byte(config), &cf)
 
+	// key: Redis collection 的名称
 	if _, ok := cf["key"]; !ok {
 		cf["key"] = DefaultKey
 	}
+	// conn: Redis 连接信息
 	if _, ok := cf["conn"]; !ok {
 		return errors.New("config has no conn key")
 	}
@@ -173,9 +175,11 @@ func (rc *Cache) StartAndGC(config string) error {
 		cf["conn"] = cf["conn"][i+1:]
 	}
 
+	// dbNum: 连接 Redis 时的 DB 编号. 默认是0.
 	if _, ok := cf["dbNum"]; !ok {
 		cf["dbNum"] = "0"
 	}
+	// password: 用于连接有密码的 Redis 服务器.
 	if _, ok := cf["password"]; !ok {
 		cf["password"] = ""
 	}
